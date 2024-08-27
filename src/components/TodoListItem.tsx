@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { TTodo } from "../types/todo";
 import CheckBox from "./html/CheckBox";
 import Button from "./html/Button";
+import React from "react";
 
 const TodoListItem = ({
   todo,
@@ -57,4 +58,4 @@ const TodoListItem = ({
     </>
   );
 };
-export default TodoListItem;
+export default React.memo(TodoListItem);

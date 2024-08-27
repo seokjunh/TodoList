@@ -1,29 +1,29 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import TodoEditor from "./TodoEditor";
 import TodoList from "./TodoList";
 import { TTodo } from "../types/todo";
 
 const Todo = () => {
   const [todos, setTodos] = useState<TTodo[]>([]);
-  
-  const addTodo = (text: string) => {
+
+  const addTodo = useCallback((text: string) => {
     setTodos((todos) => [
       ...todos,
       { id: Math.random(), text, isCompleted: false },
     ]);
-  };
+  }, []);
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = useCallback((id: number) => {
     setTodos((todos) =>
       todos.map((todo) =>
         todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
-  };
+  }, []);
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = useCallback((id: number) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
-  };
+  }, []);
   return (
     <>
       <div className="item-middle bg-black">
