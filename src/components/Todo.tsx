@@ -1,29 +1,8 @@
-import { useCallback, useState } from "react";
 import TodoEditor from "./TodoEditor";
 import TodoList from "./TodoList";
-import { TTodo } from "../types/todo";
+import { TodoProvider } from "./context/TodoProvider";
 
 const Todo = () => {
-  const [todos, setTodos] = useState<TTodo[]>([]);
-
-  const addTodo = useCallback((text: string) => {
-    setTodos((todos) => [
-      ...todos,
-      { id: Math.random(), text, isCompleted: false },
-    ]);
-  }, []);
-
-  const toggleTodo = useCallback((id: number) => {
-    setTodos((todos) =>
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-      )
-    );
-  }, []);
-
-  const deleteTodo = useCallback((id: number) => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== id));
-  }, []);
   return (
     <>
       <div className="item-middle bg-black">
@@ -31,13 +10,11 @@ const Todo = () => {
           <h1 className="text-xl font-bold mb-[10px]">Todo List App</h1>
           <p className="text-sm mb-5">Please enter your details to continue.</p>
           {/* 등록 */}
-          <TodoEditor addTodo={addTodo} />
-          {/* 목록 */}
-          <TodoList
-            todos={todos}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
-          />
+          <TodoProvider>
+            <TodoEditor />
+            {/* 목록 */}
+            <TodoList />
+          </TodoProvider>
         </div>
       </div>
     </>

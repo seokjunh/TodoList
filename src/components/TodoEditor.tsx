@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Input from "./html/Input";
 import Button from "./html/Button";
 import React from "react";
+import { TodoContextFn } from "./context/TodoProvider";
 
-const TodoEditor = ({ addTodo }: { addTodo: (text: string) => void }) => {
+const TodoEditor = () => {
+  const { addTodo } = useContext(TodoContextFn)!;
   const [text, setText] = useState("");
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
